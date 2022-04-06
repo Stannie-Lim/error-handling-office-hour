@@ -26,7 +26,10 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const todo = await Todo.findByPk(req.params.id);
-    const updated = await todo.update(req.body);
+    const updated = await todo.update({ 
+      ...req.body,
+      userId: req.body.userId || null,
+    });
     res.send(await Todo.findByPk(req.params.id));
   } catch (error) {
     next(error);

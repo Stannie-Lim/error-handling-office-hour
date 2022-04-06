@@ -4,7 +4,10 @@ const conn = require('./conn');
 const Todo = conn.define('todo', {
   taskName: {
     type: Sequelize.STRING(20),
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   }
 });
 

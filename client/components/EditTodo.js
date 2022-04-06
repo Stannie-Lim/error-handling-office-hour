@@ -7,7 +7,8 @@ class EditTodo extends Component {
     super(props);
     this.state = {
       taskName: this.props.todo ? this.props.todo.taskName : '',
-      userId: (this.props.todo && this.props.todo.userId) ? this.props.todo.userId : ''
+      userId: (this.props.todo && this.props.todo.userId) ? this.props.todo.userId : '',
+      error: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,13 +30,17 @@ class EditTodo extends Component {
     });
   }
 
-  handleSubmit(evt) {
+  async handleSubmit(evt) {
     evt.preventDefault();
-    this.props.updateTodo({ ...this.props.todo, ...this.state });
+    try {
+      await this.props.updateTodo({ ...this.props.todo, ...this.state });
+    } catch (error) {
+      this.setState({ error: error.response.data });
+    }
   }
 
   render() {
-    const { userId, taskName } = this.state;
+    const { userId, taskName, error } = this.state;
     const { users } = this.props;
     const { handleSubmit, handleChange } = this;
 
@@ -58,7 +63,7 @@ class EditTodo extends Component {
               })
             }
           </select>
-
+          {error && <h1>{error}</h1>}
           <button type='submit'>Submit</button>
         </form>
         <form onSubmit={(ev) => ev.preventDefault()}>

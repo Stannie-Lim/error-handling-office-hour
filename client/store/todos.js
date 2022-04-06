@@ -41,7 +41,7 @@ export const createTodo = (todo, history) => {
   return async (dispatch) => {
     const { data: created } = await axios.post('/api/todos', todo);
     dispatch(_createTodo(created));
-    history.push('/');
+    if (history) history.push('/');
   };
 };
 

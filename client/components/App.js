@@ -3,6 +3,7 @@ import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import Todos from './Todos';
 import CreateTodo from './CreateTodo';
 import EditTodo from './EditTodo';
+import User from './User';
 import { connect } from 'react-redux';
 import { fetchTodos, fetchUsers } from '../store';
 
@@ -23,6 +24,7 @@ class App extends Component {
             <Route exact path='/' component={Todos} />
             <Route path='/todos/create' component={CreateTodo} />
             <Route path='/todos/:id' component={EditTodo} />
+            <Route path='/users/:id' component={User} />
           </Switch>
         </div>
       </Router>
